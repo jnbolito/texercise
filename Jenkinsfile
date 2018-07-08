@@ -1,20 +1,17 @@
-final GRADLE_VERSION = '4.8-jdk-alpine'
-
 pipeline {
     agent none
     stages {
         stage('Build') {
-            agent { docker "gradle:$GRADLE_VERSION" }
+            agent any
             steps {
-                sh 'gradle build'
+                sh './gradlew build'
             }
         }
         stage('Unit Tests') {
-            agent { docker "gradle:$GRADLE_VERSION" }
+            agent any
             steps {
-                sh 'gradle test'
+                sh './gradlew test'
             }
         }
     }
 }
-
