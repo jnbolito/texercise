@@ -1,3 +1,8 @@
+/**
+ * Texercise pipeiline script
+ *
+ * author: Jason Bolito
+ */
 pipeline {
     agent none
     stages {
