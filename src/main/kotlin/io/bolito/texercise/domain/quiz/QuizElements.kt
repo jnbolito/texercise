@@ -1,17 +1,26 @@
 package io.bolito.texercise.domain.quiz
 
-sealed class QuizElement(val isQuestion: Boolean) {
+sealed class QuizElement {
     abstract val id: Int
 }
 
-data class Text(override val id: Int, val text: String) : QuizElement(false)
+data class Text(override val id: Int, val text: String) : QuizElement()
 
 sealed class Question(
     override val id: Int,
     val question: String,
     val marks: Int = 1,
     val acceptedAnswer: Answer
-) : QuizElement(true)
+) : QuizElement()
+
+data class QuestionGroup(override val id: Int, val questions: List<Question>) : QuizElement() {
+
+    val marks by lazy { questions.asSequence().map { it.marks }.sum() }
+
+    init {
+        require(questions.isNotEmpty())
+    }
+}
 
 /////////////////  ANSWERS //////////////////////////
 
